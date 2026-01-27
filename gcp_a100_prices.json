@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-01-28 01:17:08",
+  "provider": "GCP",
+  "fetch_status": "success",
+  "data_sources": [
+    "Vantage.sh",
+    "GCP GPU Pricing Page"
+  ],
+  "providers": {
+    "GCP": {
+      "name": "Google Cloud",
+      "url": "https://cloud.google.com/compute/gpus-pricing",
+      "variants": {
+        "A2-highgpu-8g (GCP)": {
+          "gpu_model": "A100",
+          "gpu_memory": "40GB",
+          "price_per_hour": 5.92,
+          "currency": "USD",
+          "availability": "on-demand",
+          "fetch_status": "success"
+        }
+      }
+    }
+  },
+  "notes": {
+    "instance_type": "a2-highgpu-8g",
+    "gpu_model": "NVIDIA A100",
+    "gpu_memory": "40GB HBM2e",
+    "gpu_count_per_instance": 8,
+    "pricing_type": "On-Demand",
+    "source": "https://cloud.google.com/compute/gpus-pricing"
+  }
+}

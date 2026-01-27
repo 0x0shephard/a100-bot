@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-01-28 01:18:05",
+  "provider": "Oracle",
+  "fetch_status": "success",
+  "data_sources": [
+    "Vantage.sh",
+    "Oracle Compute Pricing Page"
+  ],
+  "providers": {
+    "Oracle": {
+      "name": "Oracle Cloud",
+      "url": "https://www.oracle.com/cloud/compute/pricing/",
+      "variants": {
+        "BM.GPU4.8 (Oracle)": {
+          "gpu_model": "A100",
+          "gpu_memory": "40GB",
+          "price_per_hour": 4.0,
+          "currency": "USD",
+          "availability": "on-demand",
+          "fetch_status": "success"
+        }
+      }
+    }
+  },
+  "notes": {
+    "instance_type": "BM.GPU4.8",
+    "gpu_model": "NVIDIA A100",
+    "gpu_memory": "40GB HBM2e",
+    "gpu_count_per_instance": 8,
+    "pricing_type": "On-Demand (Pay-As-You-Go)",
+    "source": "https://www.oracle.com/cloud/compute/pricing/"
+  }
+}

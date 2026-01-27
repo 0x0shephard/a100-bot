@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-01-28 01:17:36",
+  "provider": "Azure",
+  "fetch_status": "success",
+  "data_sources": [
+    "Azure Retail Prices API",
+    "Vantage.sh",
+    "Azure Pricing Page"
+  ],
+  "providers": {
+    "Azure": {
+      "name": "Microsoft Azure",
+      "url": "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/",
+      "variants": {
+        "ND96asr_A100_v4 (Azure)": {
+          "gpu_model": "A100",
+          "gpu_memory": "40GB",
+          "price_per_hour": 2.71,
+          "currency": "USD",
+          "availability": "on-demand",
+          "fetch_status": "success"
+        }
+      }
+    }
+  },
+  "notes": {
+    "instance_type": "Standard_ND96asr_A100_v4",
+    "gpu_model": "NVIDIA A100",
+    "gpu_memory": "40GB HBM2e",
+    "gpu_count_per_instance": 8,
+    "pricing_type": "On-Demand (Linux)",
+    "source": "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/"
+  }
+}

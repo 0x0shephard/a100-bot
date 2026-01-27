@@ -1,0 +1,10 @@
+# A100 Index Pipeline Requirements
+
+# Core dependencies
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+selenium>=4.0.0
+
+# Supabase integration
+supabase>=2.0.0
+python-dotenv>=1.0.0
