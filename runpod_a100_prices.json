@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-01-29 04:22:17",
+  "provider": "RunPod",
+  "gpu_model": "A100",
+  "prices": {
+    "A100 SXM": "$1.79/hr",
+    "A100": "$1.79/hr"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-01-29 04:22:16",
+  "provider": "Paperspace",
+  "gpu_model": "A100",
+  "prices": {
+    "A100": "$2.24/hr"
+  }
+}

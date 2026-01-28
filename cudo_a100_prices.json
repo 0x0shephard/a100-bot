@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-01-29 04:21:54",
+  "provider": "CUDO Compute",
+  "gpu_model": "A100",
+  "prices": {
+    "A100 PCIe (On-Demand)": "$1.35/hr",
+    "A100 PCIe (Reserved)": "$1.13/hr"
+  }
+}

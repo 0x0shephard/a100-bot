@@ -1,0 +1,434 @@
+{
+  "timestamp": "2026-01-29 04:22:21",
+  "gpu_model": "A100",
+  "total_providers": 18,
+  "successful_fetches": 8,
+  "failed_fetches": 10,
+  "total_variants": 14,
+  "providers": {
+    "Atlantic.Net": {
+      "source_file": "atlanticnet_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "AWS": {
+      "source_file": "aws_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Azure": {
+      "source_file": "azure_a100_prices.json",
+      "variants": {
+        "ND96asr_A100_v4 (Azure)": {
+          "price": 2.77,
+          "currency": "USD",
+          "display": "$2.77/hr"
+        }
+      },
+      "variant_count": 1,
+      "fetch_status": "success"
+    },
+    "Civo": {
+      "source_file": "civo_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "CUDO Compute": {
+      "source_file": "cudo_a100_prices.json",
+      "variants": {
+        "A100 PCIe (On-Demand)": {
+          "price": 1.35,
+          "currency": "USD",
+          "display": "$1.35/hr"
+        },
+        "A100 PCIe (Reserved)": {
+          "price": 1.13,
+          "currency": "USD",
+          "display": "$1.13/hr"
+        }
+      },
+      "variant_count": 2,
+      "fetch_status": "success"
+    },
+    "FluidStack": {
+      "source_file": "fluidstack_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "Unable to fetch page from FluidStack"
+    },
+    "GCP": {
+      "source_file": "gcp_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Genesis Cloud": {
+      "source_file": "genesis_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "GPU-Mart": {
+      "source_file": "gpumart_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Hostkey": {
+      "source_file": "hostkey_a100_prices.json",
+      "variants": {
+        "A100 (Hourly)": {
+          "price": 0.47,
+          "currency": "EUR",
+          "display": "€0.47/hr"
+        },
+        "A100 80GB": {
+          "price": 0.47,
+          "currency": "EUR",
+          "display": "€0.47/hr"
+        },
+        "A100": {
+          "price": 0.47,
+          "currency": "EUR",
+          "display": "€0.47/hr"
+        }
+      },
+      "variant_count": 3,
+      "fetch_status": "success"
+    },
+    "HyperStack": {
+      "source_file": "hyperstack_a100_prices.json",
+      "variants": {
+        "A100 SXM": {
+          "price": 1.6,
+          "currency": "USD",
+          "display": "$1.60/hr"
+        },
+        "A100 NVLink": {
+          "price": 1.4,
+          "currency": "USD",
+          "display": "$1.40/hr"
+        },
+        "A100 (Standard)": {
+          "price": 1.35,
+          "currency": "USD",
+          "display": "$1.35/hr"
+        }
+      },
+      "variant_count": 3,
+      "fetch_status": "success"
+    },
+    "JarvisLabs": {
+      "source_file": "jarvislabs_a100_prices.json",
+      "variants": {
+        "A100": {
+          "price": 3.8,
+          "currency": "USD",
+          "display": "$3.80/hr"
+        }
+      },
+      "variant_count": 1,
+      "fetch_status": "success"
+    },
+    "Lambda Labs": {
+      "source_file": "lambda_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Nebius": {
+      "source_file": "nebius_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Oracle": {
+      "source_file": "oracle_a100_prices.json",
+      "variants": {},
+      "variant_count": 0,
+      "fetch_status": "failed",
+      "error": "No A100 prices found"
+    },
+    "Paperspace": {
+      "source_file": "paperspace_a100_prices.json",
+      "variants": {
+        "A100": {
+          "price": 2.24,
+          "currency": "USD",
+          "display": "$2.24/hr"
+        }
+      },
+      "variant_count": 1,
+      "fetch_status": "success"
+    },
+    "RunPod": {
+      "source_file": "runpod_a100_prices.json",
+      "variants": {
+        "A100 SXM": {
+          "price": 1.79,
+          "currency": "USD",
+          "display": "$1.79/hr"
+        },
+        "A100": {
+          "price": 1.79,
+          "currency": "USD",
+          "display": "$1.79/hr"
+        }
+      },
+      "variant_count": 2,
+      "fetch_status": "success"
+    },
+    "Vast.ai": {
+      "source_file": "vastai_a100_prices.json",
+      "variants": {
+        "A100 (A100 PCIE)": {
+          "price": 0.24,
+          "currency": "USD",
+          "display": "$0.24/hr"
+        }
+      },
+      "variant_count": 1,
+      "fetch_status": "success"
+    }
+  },
+  "all_prices": [
+    {
+      "provider": "Vast.ai",
+      "variant": "A100 (A100 PCIE)",
+      "price": 0.24,
+      "currency": "USD",
+      "price_display": "$0.24/hr"
+    },
+    {
+      "provider": "Hostkey",
+      "variant": "A100 (Hourly)",
+      "price": 0.47,
+      "currency": "EUR",
+      "price_display": "€0.47/hr"
+    },
+    {
+      "provider": "Hostkey",
+      "variant": "A100 80GB",
+      "price": 0.47,
+      "currency": "EUR",
+      "price_display": "€0.47/hr"
+    },
+    {
+      "provider": "Hostkey",
+      "variant": "A100",
+      "price": 0.47,
+      "currency": "EUR",
+      "price_display": "€0.47/hr"
+    },
+    {
+      "provider": "CUDO Compute",
+      "variant": "A100 PCIe (Reserved)",
+      "price": 1.13,
+      "currency": "USD",
+      "price_display": "$1.13/hr"
+    },
+    {
+      "provider": "CUDO Compute",
+      "variant": "A100 PCIe (On-Demand)",
+      "price": 1.35,
+      "currency": "USD",
+      "price_display": "$1.35/hr"
+    },
+    {
+      "provider": "HyperStack",
+      "variant": "A100 (Standard)",
+      "price": 1.35,
+      "currency": "USD",
+      "price_display": "$1.35/hr"
+    },
+    {
+      "provider": "HyperStack",
+      "variant": "A100 NVLink",
+      "price": 1.4,
+      "currency": "USD",
+      "price_display": "$1.40/hr"
+    },
+    {
+      "provider": "HyperStack",
+      "variant": "A100 SXM",
+      "price": 1.6,
+      "currency": "USD",
+      "price_display": "$1.60/hr"
+    },
+    {
+      "provider": "RunPod",
+      "variant": "A100 SXM",
+      "price": 1.79,
+      "currency": "USD",
+      "price_display": "$1.79/hr"
+    },
+    {
+      "provider": "RunPod",
+      "variant": "A100",
+      "price": 1.79,
+      "currency": "USD",
+      "price_display": "$1.79/hr"
+    },
+    {
+      "provider": "Paperspace",
+      "variant": "A100",
+      "price": 2.24,
+      "currency": "USD",
+      "price_display": "$2.24/hr"
+    },
+    {
+      "provider": "Azure",
+      "variant": "ND96asr_A100_v4 (Azure)",
+      "price": 2.77,
+      "currency": "USD",
+      "price_display": "$2.77/hr"
+    },
+    {
+      "provider": "JarvisLabs",
+      "variant": "A100",
+      "price": 3.8,
+      "currency": "USD",
+      "price_display": "$3.80/hr"
+    }
+  ],
+  "price_summary": [
+    {
+      "provider": "Vast.ai",
+      "price": 0.24,
+      "currency": "USD",
+      "variant_count": 1,
+      "status": "success"
+    },
+    {
+      "provider": "Hostkey",
+      "price": 0.47,
+      "currency": "EUR",
+      "variant_count": 3,
+      "status": "success"
+    },
+    {
+      "provider": "CUDO Compute",
+      "price": 1.13,
+      "currency": "USD",
+      "variant_count": 2,
+      "status": "success"
+    },
+    {
+      "provider": "HyperStack",
+      "price": 1.35,
+      "currency": "USD",
+      "variant_count": 3,
+      "status": "success"
+    },
+    {
+      "provider": "RunPod",
+      "price": 1.79,
+      "currency": "USD",
+      "variant_count": 2,
+      "status": "success"
+    },
+    {
+      "provider": "Paperspace",
+      "price": 2.24,
+      "currency": "USD",
+      "variant_count": 1,
+      "status": "success"
+    },
+    {
+      "provider": "Azure",
+      "price": 2.77,
+      "currency": "USD",
+      "variant_count": 1,
+      "status": "success"
+    },
+    {
+      "provider": "JarvisLabs",
+      "price": 3.8,
+      "currency": "USD",
+      "variant_count": 1,
+      "status": "success"
+    },
+    {
+      "provider": "Atlantic.Net",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "AWS",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "Civo",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "FluidStack",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "GCP",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "Genesis Cloud",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "GPU-Mart",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "Lambda Labs",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "Nebius",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    },
+    {
+      "provider": "Oracle",
+      "price": null,
+      "currency": null,
+      "variant_count": 0,
+      "status": "failed"
+    }
+  ]
+}
