@@ -1,0 +1,210 @@
+{
+  "timestamp": "2026-02-02 01:04:12",
+  "gpu_model": "A100",
+  "final_index_price": 1.84,
+  "hyperscaler_component": 1.2441,
+  "neocloud_component": 0.5944,
+  "hyperscaler_count": 4,
+  "neocloud_count": 7,
+  "hyperscaler_details": [
+    {
+      "provider": "AWS",
+      "original_price": 2.74,
+      "discount_rate": 0.44,
+      "effective_price": 1.7755200000000002,
+      "relative_weight": 0.42,
+      "absolute_weight": 0.273,
+      "weighted_contribution": 0.4847169600000001
+    },
+    {
+      "provider": "Azure",
+      "original_price": 2.71,
+      "discount_rate": 0.65,
+      "effective_price": 1.3008,
+      "relative_weight": 0.33,
+      "absolute_weight": 0.21450000000000002,
+      "weighted_contribution": 0.27902160000000004
+    },
+    {
+      "provider": "GCP",
+      "original_price": 5.92,
+      "discount_rate": 0.65,
+      "effective_price": 2.8416,
+      "relative_weight": 0.17,
+      "absolute_weight": 0.11050000000000001,
+      "weighted_contribution": 0.3139968000000001
+    },
+    {
+      "provider": "Oracle",
+      "original_price": 4.0,
+      "discount_rate": 0.25,
+      "effective_price": 3.2,
+      "relative_weight": 0.08,
+      "absolute_weight": 0.052000000000000005,
+      "weighted_contribution": 0.16640000000000002
+    }
+  ],
+  "neocloud_details": [
+    {
+      "provider": "Civo",
+      "price": 1.09,
+      "availability": "unknown",
+      "base_weight": 0.15,
+      "dynamic_weight": 0.17647058823529413,
+      "absolute_weight": 0.061764705882352944,
+      "weighted_contribution": 0.06732352941176471
+    },
+    {
+      "provider": "CUDO Compute",
+      "price": 1.35,
+      "availability": "unknown",
+      "base_weight": 0.12,
+      "dynamic_weight": 0.1411764705882353,
+      "absolute_weight": 0.04941176470588235,
+      "weighted_contribution": 0.06670588235294117
+    },
+    {
+      "provider": "Hostkey",
+      "price": 0.5592999999999999,
+      "availability": "unknown",
+      "base_weight": 0.08,
+      "dynamic_weight": 0.09411764705882353,
+      "absolute_weight": 0.03294117647058823,
+      "weighted_contribution": 0.018423999999999996
+    },
+    {
+      "provider": "HyperStack",
+      "price": 1.6,
+      "availability": "unknown",
+      "base_weight": 0.12,
+      "dynamic_weight": 0.1411764705882353,
+      "absolute_weight": 0.04941176470588235,
+      "weighted_contribution": 0.07905882352941176
+    },
+    {
+      "provider": "Lambda Labs",
+      "price": 2.99,
+      "availability": "unknown",
+      "base_weight": 0.13,
+      "dynamic_weight": 0.15294117647058825,
+      "absolute_weight": 0.05352941176470588,
+      "weighted_contribution": 0.1600529411764706
+    },
+    {
+      "provider": "Paperspace",
+      "price": 2.24,
+      "availability": "unknown",
+      "base_weight": 0.1,
+      "dynamic_weight": 0.11764705882352942,
+      "absolute_weight": 0.041176470588235294,
+      "weighted_contribution": 0.09223529411764707
+    },
+    {
+      "provider": "RunPod",
+      "price": 1.79,
+      "availability": "unknown",
+      "base_weight": 0.15,
+      "dynamic_weight": 0.17647058823529413,
+      "absolute_weight": 0.061764705882352944,
+      "weighted_contribution": 0.11055882352941176
+    }
+  ],
+  "dynamic_weighting_enabled": true,
+  "provider_availability": {
+    "AWS": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Azure": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Civo": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "CUDO Compute": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "FluidStack": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "GCP": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Hostkey": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "HyperStack": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Lambda Labs": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Oracle": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "Paperspace": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    },
+    "RunPod": {
+      "availability": "unknown",
+      "gpu_count": 0,
+      "distribution": {}
+    }
+  },
+  "weights": {
+    "hyperscaler_total": 0.65,
+    "neocloud_total": 0.35,
+    "hyperscaler_individual": {
+      "AWS": 0.42,
+      "Azure": 0.33,
+      "GCP": 0.17,
+      "Oracle": 0.08
+    },
+    "hyperscaler_discounts": {
+      "AWS": 0.44,
+      "Azure": 0.65,
+      "GCP": 0.65,
+      "Oracle": 0.25
+    },
+    "availability_multipliers": {
+      "high": 1.2,
+      "medium": 1.0,
+      "low": 0.7,
+      "unavailable": 0.3,
+      "unknown": 1.0
+    },
+    "discount_blend": {
+      "discounted_weight": 0.8,
+      "full_price_weight": 0.2
+    }
+  },
+  "base_config": {
+    "gpu_model": "A100",
+    "gpu_memory_gb": 40,
+    "memory_bandwidth_tb_s": 2.0,
+    "fp16_tflops": 312,
+    "form_factor": "PCIe/SXM"
+  },
+  "eur_usd_rate": 1.19
+}

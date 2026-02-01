@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-29 04:21:51",
+  "timestamp": "2026-02-02 00:13:51",
   "provider": "Azure",
   "fetch_status": "success",
   "data_sources": [
@@ -15,7 +15,7 @@
         "ND96asr_A100_v4 (Azure)": {
           "gpu_model": "A100",
           "gpu_memory": "40GB",
-          "price_per_hour": 2.77,
+          "price_per_hour": 2.71,
           "currency": "USD",
           "availability": "on-demand",
           "fetch_status": "success"

@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
 Lambda Labs A100 GPU Pricing Scraper
-Extracts A100 pricing from lambdalabs.com - Dynamic pricing only
+Extracts A100 pricing from Lambda Labs using the same approach as the H100 scraper
+Based on: bot/bot/scraper20.py LambdaLabsScraper
+
+NO FALLBACK VALUES - only live data
 """
 
-import requests
-from bs4 import BeautifulSoup
-import re
 import json
 import time
+import re
 from typing import Dict, Optional
+import requests
+from bs4 import BeautifulSoup
 
 
 class LambdaLabsA100Scraper:
@@ -17,7 +20,7 @@ class LambdaLabsA100Scraper:
 
     def __init__(self):
         self.name = "Lambda Labs"
-        self.base_url = "https://lambdalabs.com/service/gpu-cloud"
+        self.base_url = "https://lambda.ai/pricing"
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -34,24 +37,54 @@ class LambdaLabsA100Scraper:
             print(f"  Error fetching {self.name} page: {e}")
             return None
 
+    def extract_a100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
+        """Extract A100 prices from Lambda Labs"""
+        a100_prices = {}
+        text_content = soup.get_text()
+        
+        # Lambda Labs A100 pricing patterns
+        # Actual format observed: "TiB SSD$1.29NVIDIA A100"
+        patterns = [
+            # Pattern for text like "SSD$1.29NVIDIA A100" 
+            (r'\$(\d+\.\d+)NVIDIA A100', 'A100'),
+            (r'SSD\$(\d+\.\d+)NVIDIA A100', 'A100'),
+            (r'\$(\d+\.\d+).*?NVIDIA A100', 'A100'),
+            # Pattern: price followed by A100
+            (r'\$(\d+\.\d+).*?A100', 'A100'),
+            # Pattern: A100 somewhere near a price
+            (r'A100.*?\$(\d+\.\d+)', 'A100'),
+            # General price patterns near A100
+            (r'(\d+\.\d+)/hr.*?A100', 'A100'),
+            (r'A100.*?(\d+\.\d+)/GPU', 'A100 (per GPU)'),
+            # On-demand patterns
+            (r'On-demand.*?A100.*?\$(\d+\.\d+)', 'A100 (On-Demand)'),
+            # Instance type patterns
+            (r'gpu_1x_a100.*?\$(\d+\.\d+)', 'A100 (1x GPU)'),
+        ]
+        
+        for pattern, name in patterns:
+            matches = re.findall(pattern, text_content, re.IGNORECASE | re.DOTALL)
+            if matches and name not in a100_prices:
+                try:
+                    price = float(matches[0])
+                    if 0.5 < price < 20:  # Reasonable A100 price per GPU
+                        a100_prices[name] = f"${matches[0]}"
+                except ValueError:
+                    a100_prices[name] = f"${matches[0]}"
+        
+        return a100_prices
+
     def get_a100_prices(self) -> Dict[str, str]:
         """Main method to extract A100 prices"""
         print(f"Fetching {self.name} A100 pricing...")
         print(f"URL: {self.base_url}")
         print("=" * 60)
 
-        a100_prices = {}
+        soup = self.fetch_page()
+        if not soup:
+            return {}
 
-        # Try Lambda Labs API first
-        api_prices = self._try_api()
-        if api_prices:
-            a100_prices.update(api_prices)
-
-        # Try page scraping if API fails
-        if not a100_prices:
-            soup = self.fetch_page()
-            if soup:
-                a100_prices = self._scrape_page(soup)
+        a100_prices = self.extract_a100_prices(soup)
 
         if a100_prices:
             print(f"  Found {len(a100_prices)} A100 price variants:")
@@ -62,89 +95,18 @@ class LambdaLabsA100Scraper:
 
         return a100_prices
 
-    def _try_api(self) -> Dict[str, str]:
-        """Try Lambda Labs API for A100 pricing"""
-        a100_prices = {}
-
-        try:
-            print("  Trying Lambda Labs API...")
-            api_response = requests.get(
-                "https://cloud.lambdalabs.com/api/v1/instance-types",
-                headers=self.headers,
-                timeout=15
-            )
-
-            if api_response.status_code == 200:
-                data = api_response.json()
-                print(f"    Got API response")
-
-                if 'data' in data:
-                    for instance_type, details in data['data'].items():
-                        instance_str = str(instance_type).upper()
-                        details_str = str(details).upper()
-
-                        if 'A100' in instance_str or 'A100' in details_str:
-                            print(f"    Found A100 instance: {instance_type}")
-
-                            if isinstance(details, dict) and 'instance_type' in details:
-                                instance_info = details['instance_type']
-                                if 'price_cents_per_hour' in instance_info:
-                                    price = instance_info['price_cents_per_hour'] / 100
-                                    if 0.1 < price < 20:
-                                        a100_prices[f'A100 ({instance_type})'] = f"${price:.2f}/hr"
-                            elif isinstance(details, dict) and 'price_cents_per_hour' in details:
-                                price = details['price_cents_per_hour'] / 100
-                                if 0.1 < price < 20:
-                                    a100_prices[f'A100 ({instance_type})'] = f"${price:.2f}/hr"
-            else:
-                print(f"    API returned status: {api_response.status_code}")
-
-        except Exception as e:
-            print(f"    API error: {str(e)[:50]}")
-
-        return a100_prices
-
-    def _scrape_page(self, soup: BeautifulSoup) -> Dict[str, str]:
-        """Scrape Lambda Labs page for A100 pricing"""
-        a100_prices = {}
-        text_content = soup.get_text()
-
-        patterns = [
-            (r'1x A100.*?\$(\d+\.\d+)/hr', 'A100 (1x GPU)'),
-            (r'2x A100.*?\$(\d+\.\d+)/hr', 'A100 (2x GPUs)'),
-            (r'4x A100.*?\$(\d+\.\d+)/hr', 'A100 (4x GPUs)'),
-            (r'8x A100.*?\$(\d+\.\d+)/hr', 'A100 (8x GPUs)'),
-            (r'A100 SXM.*?\$(\d+\.\d+)', 'A100 SXM'),
-            (r'A100 PCIe.*?\$(\d+\.\d+)', 'A100 PCIe'),
-            (r'A100 80GB.*?\$(\d+\.\d+)', 'A100 80GB'),
-            (r'A100 40GB.*?\$(\d+\.\d+)', 'A100 40GB'),
-            (r'A100.*?\$(\d+\.\d+)/hr', 'A100'),
-            (r'A100.*?\$(\d+\.\d+)', 'A100'),
-        ]
-
-        for pattern, name in patterns:
-            matches = re.findall(pattern, text_content, re.IGNORECASE | re.DOTALL)
-            if matches and name not in a100_prices:
-                try:
-                    price = float(matches[0])
-                    if 0.1 < price < 20:
-                        a100_prices[name] = f"${price:.2f}/hr"
-                except ValueError:
-                    pass
-
-        return a100_prices
-
 
 def main():
     """Main entry point"""
     scraper = LambdaLabsA100Scraper()
     prices = scraper.get_a100_prices()
 
-    # Save results
     output = {
         'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
         'provider': scraper.name,
         'gpu_model': 'A100',
+        'fetch_status': 'success' if prices else 'failed',
+        'data_sources': ['Lambda Labs Pricing Page'],
         'prices': prices
     }
 

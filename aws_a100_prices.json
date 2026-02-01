@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-01-29 04:21:48",
+  "timestamp": "2026-02-02 00:13:13",
   "provider": "AWS",
-  "fetch_status": "failed",
+  "fetch_status": "success",
   "data_sources": [
     "Vantage.sh",
     "AWS EC2 Pricing Page"
@@ -14,10 +14,10 @@
         "P4d.24xlarge (AWS)": {
           "gpu_model": "A100",
           "gpu_memory": "40GB",
-          "price_per_hour": null,
+          "price_per_hour": 2.74,
           "currency": "USD",
           "availability": "on-demand",
-          "fetch_status": "failed"
+          "fetch_status": "success"
         }
       }
     }

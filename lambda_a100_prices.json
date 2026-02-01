@@ -1,6 +1,13 @@
 {
-  "timestamp": "2026-01-29 04:22:10",
+  "timestamp": "2026-02-02 00:43:51",
   "provider": "Lambda Labs",
   "gpu_model": "A100",
-  "prices": {}
+  "fetch_status": "success",
+  "data_sources": [
+    "Lambda Labs Pricing Page"
+  ],
+  "prices": {
+    "A100": "$2.99",
+    "A100 (On-Demand)": "$4.99"
+  }
 }

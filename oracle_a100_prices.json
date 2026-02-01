@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-01-29 04:22:14",
+  "timestamp": "2026-02-02 00:19:23",
   "provider": "Oracle",
-  "fetch_status": "failed",
+  "fetch_status": "success",
   "data_sources": [
     "Vantage.sh",
     "Oracle Compute Pricing Page"
@@ -14,10 +14,10 @@
         "BM.GPU4.8 (Oracle)": {
           "gpu_model": "A100",
           "gpu_memory": "40GB",
-          "price_per_hour": null,
+          "price_per_hour": 4.0,
           "currency": "USD",
           "availability": "on-demand",
-          "fetch_status": "failed"
+          "fetch_status": "success"
         }
       }
     }

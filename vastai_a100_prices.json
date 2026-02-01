@@ -1,8 +1,6 @@
 {
-  "timestamp": "2026-01-29 04:22:21",
+  "timestamp": "2026-02-02 01:10:57",
   "provider": "Vast.ai",
   "gpu_model": "A100",
-  "prices": {
-    "A100 (A100 PCIE)": "$0.24/hr"
-  }
+  "prices": {}
 }
