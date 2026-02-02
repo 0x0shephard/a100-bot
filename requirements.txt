@@ -8,3 +8,6 @@ selenium>=4.0.0
 # Supabase integration
 supabase>=2.0.0
 python-dotenv>=1.0.0
+
+# Blockchain integration
+web3>=6.0.0

@@ -45,8 +45,10 @@ jobs:
       - name: Push to Contract
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          RPC_URL: ${{ secrets.RPC_URL }}
-        run: python push_to_contract.py
+          SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        run: |
+          PRICE=$(python -c "import json; print(json.load(open('a100_weighted_index.json'))['final_index_price'])")
+          python push_to_contract.py --price $PRICE
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
