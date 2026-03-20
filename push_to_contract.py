@@ -96,12 +96,15 @@ def main():
     print("\nSending transaction...")
 
     # Build and send tx
+    base_fee = w3.eth.gas_price
+    max_fee = max(base_fee * 2, w3.to_wei(2, "gwei"))
+    priority_fee = min(w3.to_wei(1, "gwei"), max_fee)
     tx = contract.functions.updatePrice(asset_id_bytes, new_price_scaled).build_transaction({
         "from": account.address,
         "nonce": w3.eth.get_transaction_count(account.address),
         "gas": 100000,
-        "maxFeePerGas": w3.eth.gas_price * 2,
-        "maxPriorityFeePerGas": w3.to_wei(1, "gwei"),
+        "maxFeePerGas": max_fee,
+        "maxPriorityFeePerGas": priority_fee,
         "chainId": 11155111,
     })
 
