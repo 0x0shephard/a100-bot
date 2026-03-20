@@ -203,46 +203,97 @@ class A100IndexCalculator:
         return prices
     
     def _extract_price_from_data(self, data: Dict) -> Tuple[float, str]:
-        """Extract price value and currency from provider data"""
-        # Check for distribution data (enhanced format with median)
+        """Extract price value and currency from provider data.
+        
+        Selection logic (deterministic — no more random first-key selection):
+        1. Marketplace distribution data → use median (unchanged)
+        2. Hyperscaler nested-provider format → lowest on-demand variant
+        3. Neocloud prices dict → collect ALL valid prices, prefer lowest
+           on-demand price; fall back to lowest overall if none labelled on-demand.
+           Spot / bid / minimum-bid variants are excluded from primary selection.
+        """
+        # 1. Distribution data with explicit median (e.g. Vast.ai enhanced format)
         distribution = data.get("distribution", {})
         if distribution and "median" in distribution:
-            # Use median price from distribution for volatility
             return float(distribution["median"]), "USD"
-        
-        # Try nested providers structure (hyperscaler format)
+
+        # 2. Nested providers structure (hyperscaler format: AWS, Azure, GCP, Oracle)
         if "providers" in data:
+            candidate_prices = []
             for provider_name, provider_data in data["providers"].items():
                 if "variants" in provider_data:
                     for variant_name, variant_data in provider_data["variants"].items():
                         if isinstance(variant_data, dict) and "price_per_hour" in variant_data:
-                            currency = variant_data.get("currency", "USD")
-                            return float(variant_data["price_per_hour"]), currency
-        
-        # Try prices structure (neocloud format)
+                            p = variant_data["price_per_hour"]
+                            if p is not None and p > 0:
+                                currency = variant_data.get("currency", "USD")
+                                candidate_prices.append((float(p), currency))
+            if candidate_prices:
+                # Return lowest price (hyperscalers typically have one variant anyway)
+                candidate_prices.sort(key=lambda x: x[0])
+                return candidate_prices[0]
+
+        # 3. Neocloud flat prices dict
         if "prices" in data and data["prices"]:
             prices_dict = data["prices"]
+
+            # 3a. Marketplace providers: prefer explicit Median/Mean key
             for variant, price_str in prices_dict.items():
                 if variant == "Error":
                     continue
-                
-                # Prefer Median price for marketplace providers
                 if "Median" in variant or "Mean" in variant:
                     match = re.search(r'\$?(\d+\.?\d*)', str(price_str))
                     if match:
                         return float(match.group(1)), "USD"
-                
-                # Check for EUR
-                if "€" in str(price_str):
-                    match = re.search(r'€?\s*(\d+\.?\d*)', str(price_str))
-                    if match:
-                        return float(match.group(1)), "EUR"
-                
-                # USD
-                match = re.search(r'\$?\s*(\d+\.?\d*)', str(price_str))
-                if match:
-                    return float(match.group(1)), "USD"
-        
+
+            # 3b. Collect all other valid prices, split into on-demand vs spot
+            # Keywords that identify spot / reserved / bid prices to deprioritise
+            SPOT_KEYWORDS = {"spot", "bid", "minimum-bid", "minimumbid", "reserved", "preemptible"}
+
+            on_demand_prices: list = []   # (price_float, currency)
+            all_prices: list = []          # fallback pool
+
+            for variant, price_str in prices_dict.items():
+                if variant == "Error":
+                    continue
+
+                price_str = str(price_str)
+                variant_lower = variant.lower()
+
+                # Detect currency
+                if "€" in price_str:
+                    currency = "EUR"
+                    match = re.search(r'€?\s*(\d+\.?\d*)', price_str)
+                else:
+                    currency = "USD"
+                    match = re.search(r'\$?\s*(\d+\.?\d*)', price_str)
+
+                if not match:
+                    continue
+                try:
+                    price = float(match.group(1))
+                except ValueError:
+                    continue
+                if price <= 0:
+                    continue
+
+                is_spot = any(kw in variant_lower for kw in SPOT_KEYWORDS)
+                if is_spot:
+                    all_prices.append((price, currency))   # keep for fallback only
+                else:
+                    on_demand_prices.append((price, currency))
+                    all_prices.append((price, currency))
+
+            if on_demand_prices:
+                # Always pick the lowest on-demand price — deterministic
+                on_demand_prices.sort(key=lambda x: x[0])
+                return on_demand_prices[0]
+
+            if all_prices:
+                # All variants are spot-like; fall back to lowest overall
+                all_prices.sort(key=lambda x: x[0])
+                return all_prices[0]
+
         return 0.0, "USD"
     
     def get_dynamic_weight(self, provider: str, base_weight: float) -> Tuple[float, str]:
