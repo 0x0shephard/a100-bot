@@ -11,3 +11,4 @@ python-dotenv>=1.0.0
 
 # Blockchain integration
 web3>=6.0.0
+eth-account>=0.10.0

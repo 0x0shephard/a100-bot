@@ -2,10 +2,14 @@ name: A100 GPU Price Index Pipeline
 
 on:
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Run frequently enough to keep the 1 hour CuOracleAdapter maxAge fresh.
+    - cron: '*/30 * * * *'
   workflow_dispatch:
     # Allow manual trigger
+
+concurrency:
+  group: a100-cuoracle-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   scrape-and-update:
@@ -42,13 +46,18 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python push_to_supabase.py
 
-      - name: Push to Contract
+      - name: Push A100 index to ByteStrike CuOracle
         env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+          SEPOLIA_FALLBACK_RPC_URL: https://ethereum-sepolia-rpc.publicnode.com
+          ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          CU_ORACLE_ADDRESS: ${{ secrets.CU_ORACLE_ADDRESS }}
+          ORACLE_REVEAL_WAIT_SECONDS: "3"
         run: |
           PRICE=$(python -c "import json; print(json.load(open('a100_weighted_index.json'))['final_index_price'])")
-          python push_to_contract.py --price $PRICE
+          echo "A100 Weighted Index Price: \$${PRICE}/hr"
+          python push_to_contract.py --price "$PRICE"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -58,4 +67,5 @@ jobs:
           path: |
             a100_combined_prices.json
             a100_weighted_index.json
+            a100_oracle_update_log.json
           retention-days: 30
