@@ -159,7 +159,9 @@ class CuOracleClient:
         self.can_commit = bool(self.contract.functions.allowedRoles(self.address).call()) or (
             self.owner.lower() == self.address.lower()
         )
-        self.can_reveal = self.owner.lower() == self.address.lower()
+        self.can_reveal = self.owner.lower() == self.address.lower() or bool(
+            self.contract.functions.allowedRoles(self.address).call()
+        )
 
     def print_context(self) -> None:
         balance_eth = self.w3.from_wei(self.w3.eth.get_balance(self.address), "ether")
@@ -181,7 +183,9 @@ class CuOracleClient:
         if not self.can_commit:
             raise PermissionError(f"{self.address} cannot commit prices")
         if not self.can_reveal:
-            raise PermissionError(f"{self.address} cannot reveal prices; CuOracle.updatePrices is owner-only")
+            raise PermissionError(
+                f"{self.address} is neither the CuOracle owner nor an allowed publisher role"
+            )
 
     def is_supported_asset(self, asset_id: str) -> bool:
         return bool(self.contract.functions.supportedAssets(asset_id).call())
